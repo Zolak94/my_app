@@ -5,4 +5,7 @@ Route::set('index.php', function() {
 Route::set('users/create', function() {
     UserController::create();
 });
+Route::set('users/store', function() {
+    UserController::store();
+});
 ?>

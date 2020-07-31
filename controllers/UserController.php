@@ -11,4 +11,17 @@ class UserController extends Controller
     {
         require_once('./views/Create.php');
     }
+    
+    public static function store()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $user = new User();
+            $user->email = $_POST['email'];
+            $user->first_name = $_POST['first_name'];
+            $user->last_name = $_POST['last_name'];
+            $user->password = $_POST['password'];
+            $user->save();
+        }
+        header('Location: /');
+    }
 }
