@@ -24,4 +24,10 @@ class UserController extends Controller
         }
         header('Location: /');
     }
+    
+    public static function show()
+    {
+        $user = self::query("SELECT * FROM users WHERE id=".$_GET['id']);
+        require_once('./Views/Show.php');
+    }
 }
