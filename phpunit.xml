@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    colors="true"
+    stopOnFailure="true"
+    verbose="true">
+        <filter>
+            <whitelist processUncoveredFilesFromWhitelist="true">
+                <directory suffix=".php">./models</directory>
+                <exclude>
+                    <directory>/vendor</directory>
+                </exclude>
+            </whitelist>
+        </filter>
+</phpunit>
