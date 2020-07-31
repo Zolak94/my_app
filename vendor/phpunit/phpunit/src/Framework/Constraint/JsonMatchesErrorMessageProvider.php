@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,7 +12,7 @@ namespace PHPUnit\Framework\Constraint;
 /**
  * Provides human readable messages for each JSON error.
  */
-final class JsonMatchesErrorMessageProvider
+class JsonMatchesErrorMessageProvider
 {
     /**
      * Translates JSON error to a human readable string.
@@ -32,7 +32,6 @@ final class JsonMatchesErrorMessageProvider
                 return $prefix . 'Syntax error, malformed JSON';
             case \JSON_ERROR_UTF8:
                 return $prefix . 'Malformed UTF-8 characters, possibly incorrectly encoded';
-
             default:
                 return $prefix . 'Unknown error';
         }
@@ -52,7 +51,6 @@ final class JsonMatchesErrorMessageProvider
                 $prefix = 'Actual value JSON decode error - ';
 
                 break;
-
             default:
                 $prefix = '';
 

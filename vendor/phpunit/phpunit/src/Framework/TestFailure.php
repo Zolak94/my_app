@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,21 +10,22 @@
 namespace PHPUnit\Framework;
 
 use PHPUnit\Framework\Error\Error;
+use Throwable;
 
 /**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ * A TestFailure collects a failed test together with the caught exception.
  */
-final class TestFailure
+class TestFailure
 {
     /**
      * @var null|Test
      */
-    private $failedTest;
+    protected $failedTest;
 
     /**
-     * @var \Throwable
+     * @var Throwable
      */
-    private $thrownException;
+    protected $thrownException;
 
     /**
      * @var string
@@ -33,18 +34,16 @@ final class TestFailure
 
     /**
      * Returns a description for an exception.
+     *
+     * @throws \InvalidArgumentException
      */
-    public static function exceptionToString(\Throwable $e): string
+    public static function exceptionToString(Throwable $e): string
     {
         if ($e instanceof SelfDescribing) {
             $buffer = $e->toString();
 
             if ($e instanceof ExpectationFailedException && $e->getComparisonFailure()) {
                 $buffer .= $e->getComparisonFailure()->getDiff();
-            }
-
-            if ($e instanceof PHPTAssertionFailedError) {
-                $buffer .= $e->getDiff();
             }
 
             if (!empty($buffer)) {
@@ -67,8 +66,10 @@ final class TestFailure
 
     /**
      * Constructs a TestFailure with the given test and exception.
+     *
+     * @param Throwable $t
      */
-    public function __construct(Test $failedTest, \Throwable $t)
+    public function __construct(Test $failedTest, $t)
     {
         if ($failedTest instanceof SelfDescribing) {
             $this->testName = $failedTest->toString();
@@ -97,6 +98,8 @@ final class TestFailure
 
     /**
      * Returns a description for the thrown exception.
+     *
+     * @throws \InvalidArgumentException
      */
     public function getExceptionAsString(): string
     {
@@ -127,7 +130,7 @@ final class TestFailure
     /**
      * Gets the thrown exception.
      */
-    public function thrownException(): \Throwable
+    public function thrownException(): Throwable
     {
         return $this->thrownException;
     }

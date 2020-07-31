@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -9,7 +9,7 @@
  */
 namespace SebastianBergmann\CodeCoverage\Node;
 
-use SebastianBergmann\CodeCoverage\Percentage;
+use SebastianBergmann\CodeCoverage\Util;
 
 /**
  * Base class for nodes in the code coverage information tree.
@@ -117,16 +117,11 @@ abstract class AbstractNode implements \Countable
      */
     public function getTestedClassesPercent(bool $asString = true)
     {
-        $percentage = Percentage::fromFractionAndTotal(
+        return Util::percent(
             $this->getNumTestedClasses(),
             $this->getNumClasses(),
+            $asString
         );
-
-        if ($asString) {
-            return $percentage->asString();
-        }
-
-        return $percentage->asFloat();
     }
 
     /**
@@ -136,16 +131,11 @@ abstract class AbstractNode implements \Countable
      */
     public function getTestedTraitsPercent(bool $asString = true)
     {
-        $percentage = Percentage::fromFractionAndTotal(
+        return Util::percent(
             $this->getNumTestedTraits(),
             $this->getNumTraits(),
+            $asString
         );
-
-        if ($asString) {
-            return $percentage->asString();
-        }
-
-        return $percentage->asFloat();
     }
 
     /**
@@ -155,16 +145,11 @@ abstract class AbstractNode implements \Countable
      */
     public function getTestedClassesAndTraitsPercent(bool $asString = true)
     {
-        $percentage = Percentage::fromFractionAndTotal(
+        return Util::percent(
             $this->getNumTestedClassesAndTraits(),
             $this->getNumClassesAndTraits(),
+            $asString
         );
-
-        if ($asString) {
-            return $percentage->asString();
-        }
-
-        return $percentage->asFloat();
     }
 
     /**
@@ -174,16 +159,11 @@ abstract class AbstractNode implements \Countable
      */
     public function getTestedFunctionsPercent(bool $asString = true)
     {
-        $percentage = Percentage::fromFractionAndTotal(
+        return Util::percent(
             $this->getNumTestedFunctions(),
             $this->getNumFunctions(),
+            $asString
         );
-
-        if ($asString) {
-            return $percentage->asString();
-        }
-
-        return $percentage->asFloat();
     }
 
     /**
@@ -193,16 +173,11 @@ abstract class AbstractNode implements \Countable
      */
     public function getTestedMethodsPercent(bool $asString = true)
     {
-        $percentage = Percentage::fromFractionAndTotal(
+        return Util::percent(
             $this->getNumTestedMethods(),
             $this->getNumMethods(),
+            $asString
         );
-
-        if ($asString) {
-            return $percentage->asString();
-        }
-
-        return $percentage->asFloat();
     }
 
     /**
@@ -212,16 +187,11 @@ abstract class AbstractNode implements \Countable
      */
     public function getTestedFunctionsAndMethodsPercent(bool $asString = true)
     {
-        $percentage = Percentage::fromFractionAndTotal(
+        return Util::percent(
             $this->getNumTestedFunctionsAndMethods(),
             $this->getNumFunctionsAndMethods(),
+            $asString
         );
-
-        if ($asString) {
-            return $percentage->asString();
-        }
-
-        return $percentage->asFloat();
     }
 
     /**
@@ -231,16 +201,11 @@ abstract class AbstractNode implements \Countable
      */
     public function getLineExecutedPercent(bool $asString = true)
     {
-        $percentage = Percentage::fromFractionAndTotal(
+        return Util::percent(
             $this->getNumExecutedLines(),
             $this->getNumExecutableLines(),
+            $asString
         );
-
-        if ($asString) {
-            return $percentage->asString();
-        }
-
-        return $percentage->asFloat();
     }
 
     /**

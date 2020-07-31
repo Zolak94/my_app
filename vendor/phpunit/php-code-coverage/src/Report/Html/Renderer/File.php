@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -10,8 +10,7 @@
 namespace SebastianBergmann\CodeCoverage\Report\Html;
 
 use SebastianBergmann\CodeCoverage\Node\File as FileNode;
-use SebastianBergmann\CodeCoverage\Percentage;
-use SebastianBergmann\Template\Template;
+use SebastianBergmann\CodeCoverage\Util;
 
 /**
  * Renders a file node.
@@ -28,7 +27,7 @@ final class File extends Renderer
      */
     public function render(FileNode $node, string $file): void
     {
-        $template = new Template($this->templatePath . 'file.html', '{{', '}}');
+        $template = new \Text_Template($this->templatePath . 'file.html', '{{', '}}');
 
         $template->setVar(
             [
@@ -44,9 +43,9 @@ final class File extends Renderer
 
     protected function renderItems(FileNode $node): string
     {
-        $template = new Template($this->templatePath . 'file_item.html', '{{', '}}');
+        $template = new \Text_Template($this->templatePath . 'file_item.html', '{{', '}}');
 
-        $methodItemTemplate = new Template(
+        $methodItemTemplate = new \Text_Template(
             $this->templatePath . 'method_item.html',
             '{{',
             '}}'
@@ -92,7 +91,7 @@ final class File extends Renderer
         return $items;
     }
 
-    protected function renderTraitOrClassItems(array $items, Template $template, Template $methodItemTemplate): string
+    protected function renderTraitOrClassItems(array $items, \Text_Template $template, \Text_Template $methodItemTemplate): string
     {
         $buffer = '';
 
@@ -117,25 +116,16 @@ final class File extends Renderer
             if ($item['executableLines'] > 0) {
                 $numClasses                   = 1;
                 $numTestedClasses             = $numTestedMethods == $numMethods ? 1 : 0;
-                $linesExecutedPercentAsString = Percentage::fromFractionAndTotal(
+                $linesExecutedPercentAsString = Util::percent(
                     $item['executedLines'],
-                    $item['executableLines']
-                )->asString();
+                    $item['executableLines'],
+                    true
+                );
             } else {
                 $numClasses                   = 'n/a';
                 $numTestedClasses             = 'n/a';
                 $linesExecutedPercentAsString = 'n/a';
             }
-
-            $testedMethodsPercentage = Percentage::fromFractionAndTotal(
-                $numTestedMethods,
-                $numMethods
-            );
-
-            $testedClassesPercentage = Percentage::fromFractionAndTotal(
-                $numTestedMethods === $numMethods ? 1 : 0,
-                1
-            );
 
             $buffer .= $this->renderItemTemplate(
                 $template,
@@ -145,17 +135,32 @@ final class File extends Renderer
                     'numTestedClasses'             => $numTestedClasses,
                     'numMethods'                   => $numMethods,
                     'numTestedMethods'             => $numTestedMethods,
-                    'linesExecutedPercent'         => Percentage::fromFractionAndTotal(
+                    'linesExecutedPercent'         => Util::percent(
                         $item['executedLines'],
                         $item['executableLines'],
-                    )->asFloat(),
+                        false
+                    ),
                     'linesExecutedPercentAsString' => $linesExecutedPercentAsString,
                     'numExecutedLines'             => $item['executedLines'],
                     'numExecutableLines'           => $item['executableLines'],
-                    'testedMethodsPercent'         => $testedMethodsPercentage->asFloat(),
-                    'testedMethodsPercentAsString' => $testedMethodsPercentage->asString(),
-                    'testedClassesPercent'         => $testedClassesPercentage->asFloat(),
-                    'testedClassesPercentAsString' => $testedClassesPercentage->asString(),
+                    'testedMethodsPercent'         => Util::percent(
+                        $numTestedMethods,
+                        $numMethods
+                    ),
+                    'testedMethodsPercentAsString' => Util::percent(
+                        $numTestedMethods,
+                        $numMethods,
+                        true
+                    ),
+                    'testedClassesPercent'         => Util::percent(
+                        $numTestedMethods == $numMethods ? 1 : 0,
+                        1
+                    ),
+                    'testedClassesPercentAsString' => Util::percent(
+                        $numTestedMethods == $numMethods ? 1 : 0,
+                        1,
+                        true
+                    ),
                     'crap'                         => $item['crap'],
                 ]
             );
@@ -172,7 +177,7 @@ final class File extends Renderer
         return $buffer;
     }
 
-    protected function renderFunctionItems(array $functions, Template $template): string
+    protected function renderFunctionItems(array $functions, \Text_Template $template): string
     {
         if (empty($functions)) {
             return '';
@@ -190,7 +195,7 @@ final class File extends Renderer
         return $buffer;
     }
 
-    protected function renderFunctionOrMethodItem(Template $template, array $item, string $indent = ''): string
+    protected function renderFunctionOrMethodItem(\Text_Template $template, array $item, string $indent = ''): string
     {
         $numMethods       = 0;
         $numTestedMethods = 0;
@@ -202,16 +207,6 @@ final class File extends Renderer
                 $numTestedMethods = 1;
             }
         }
-
-        $executedLinesPercentage = Percentage::fromFractionAndTotal(
-            $item['executedLines'],
-            $item['executableLines']
-        );
-
-        $testedMethodsPercentage = Percentage::fromFractionAndTotal(
-            $numTestedMethods,
-            1
-        );
 
         return $this->renderItemTemplate(
             $template,
@@ -225,12 +220,26 @@ final class File extends Renderer
                 ),
                 'numMethods'                   => $numMethods,
                 'numTestedMethods'             => $numTestedMethods,
-                'linesExecutedPercent'         => $executedLinesPercentage->asFloat(),
-                'linesExecutedPercentAsString' => $executedLinesPercentage->asString(),
+                'linesExecutedPercent'         => Util::percent(
+                    $item['executedLines'],
+                    $item['executableLines']
+                ),
+                'linesExecutedPercentAsString' => Util::percent(
+                    $item['executedLines'],
+                    $item['executableLines'],
+                    true
+                ),
                 'numExecutedLines'             => $item['executedLines'],
                 'numExecutableLines'           => $item['executableLines'],
-                'testedMethodsPercent'         => $testedMethodsPercentage->asFloat(),
-                'testedMethodsPercentAsString' => $testedMethodsPercentage->asString(),
+                'testedMethodsPercent'         => Util::percent(
+                    $numTestedMethods,
+                    1
+                ),
+                'testedMethodsPercentAsString' => Util::percent(
+                    $numTestedMethods,
+                    1,
+                    true
+                ),
                 'crap'                         => $item['crap'],
             ]
         );
@@ -330,14 +339,14 @@ final class File extends Renderer
 
             if (!empty($popoverTitle)) {
                 $popover = \sprintf(
-                    ' data-title="%s" data-content="%s" data-placement="top" data-html="true"',
+                    ' data-title="%s" data-content="%s" data-placement="bottom" data-html="true"',
                     $popoverTitle,
                     \htmlspecialchars($popoverContent, $this->htmlSpecialCharsFlags)
                 );
             }
 
             $lines .= \sprintf(
-                '     <tr%s><td%s><div align="right"><a name="%d"></a><a href="#%d">%d</a></div></td><td class="codeLine">%s</td></tr>' . "\n",
+                '     <tr%s%s><td><div align="right"><a name="%d"></a><a href="#%d">%d</a></div></td><td class="codeLine">%s</td></tr>' . "\n",
                 $trClass,
                 $popover,
                 $i,

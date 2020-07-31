@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -13,6 +13,8 @@ use SebastianBergmann\CodeCoverage\RuntimeException;
 
 /**
  * Driver for PHPDBG's code coverage functionality.
+ *
+ * @codeCoverageIgnore
  */
 final class PHPDBG implements Driver
 {

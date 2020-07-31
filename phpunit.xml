@@ -3,6 +3,12 @@
     colors="true"
     stopOnFailure="true"
     verbose="true">
+        <php>
+            <var name="DB_DSN" value="mysql:dbname=my_app;host=localhost" />
+            <var name="DB_USER" value="root" />
+            <var name="DB_PASSWD" value="" />
+            <var name="DB_DBNAME" value="my_app" />
+        </php>
         <filter>
             <whitelist processUncoveredFilesFromWhitelist="true">
                 <directory suffix=".php">./models</directory>

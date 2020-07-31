@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -10,8 +10,9 @@
 namespace PHPUnit\Framework\Constraint;
 
 use PHPUnit\Util\Filter;
+use Throwable;
 
-final class Exception extends Constraint
+class Exception extends Constraint
 {
     /**
      * @var string
@@ -20,6 +21,8 @@ final class Exception extends Constraint
 
     public function __construct(string $className)
     {
+        parent::__construct();
+
         $this->className = $className;
     }
 
@@ -58,7 +61,7 @@ final class Exception extends Constraint
         if ($other !== null) {
             $message = '';
 
-            if ($other instanceof \Throwable) {
+            if ($other instanceof Throwable) {
                 $message = '. Message was: "' . $other->getMessage() . '" at'
                     . "\n" . Filter::getFilteredStacktrace($other);
             }

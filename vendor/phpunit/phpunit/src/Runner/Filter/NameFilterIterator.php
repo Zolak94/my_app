@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -12,40 +12,36 @@ namespace PHPUnit\Runner\Filter;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Framework\WarningTestCase;
 use PHPUnit\Util\RegularExpression;
+use RecursiveFilterIterator;
+use RecursiveIterator;
 
-/**
- * @internal This class is not covered by the backward compatibility promise for PHPUnit
- */
-final class NameFilterIterator extends \RecursiveFilterIterator
+class NameFilterIterator extends RecursiveFilterIterator
 {
     /**
      * @var string
      */
-    private $filter;
+    protected $filter;
 
     /**
      * @var int
      */
-    private $filterMin;
+    protected $filterMin;
 
     /**
      * @var int
      */
-    private $filterMax;
+    protected $filterMax;
 
     /**
      * @throws \Exception
      */
-    public function __construct(\RecursiveIterator $iterator, string $filter)
+    public function __construct(RecursiveIterator $iterator, string $filter)
     {
         parent::__construct($iterator);
 
         $this->setFilter($filter);
     }
 
-    /**
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
     public function accept(): bool
     {
         $test = $this->getInnerIterator()->current();
@@ -58,10 +54,12 @@ final class NameFilterIterator extends \RecursiveFilterIterator
 
         if ($test instanceof WarningTestCase) {
             $name = $test->getMessage();
-        } elseif ($tmp[0] !== '') {
-            $name = \implode('::', $tmp);
         } else {
-            $name = $tmp[1];
+            if ($tmp[0] !== '') {
+                $name = \implode('::', $tmp);
+            } else {
+                $name = $tmp[1];
+            }
         }
 
         $accepted = @\preg_match($this->filter, $name, $matches);
@@ -77,7 +75,7 @@ final class NameFilterIterator extends \RecursiveFilterIterator
     /**
      * @throws \Exception
      */
-    private function setFilter(string $filter): void
+    protected function setFilter(string $filter): void
     {
         if (RegularExpression::safeMatch($filter, '') === false) {
             // Handles:
@@ -90,8 +88,8 @@ final class NameFilterIterator extends \RecursiveFilterIterator
                         $matches[1]
                     );
 
-                    $this->filterMin = (int) $matches[2];
-                    $this->filterMax = (int) $matches[3];
+                    $this->filterMin = $matches[2];
+                    $this->filterMax = $matches[3];
                 } else {
                     $filter = \sprintf(
                         '%s.*with data set #%s$',

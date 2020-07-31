@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 /*
- * This file is part of phpunit/php-code-coverage.
+ * This file is part of the php-code-coverage package.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -518,10 +518,6 @@ final class File extends AbstractNode
         $link   = $this->getId() . '.html#';
 
         foreach ($traits as $traitName => $trait) {
-            if (!empty($trait['package']['namespace'])) {
-                $traitName = $trait['package']['namespace'] . '\\' . $traitName;
-            }
-
             $this->traits[$traitName] = [
                 'traitName'       => $traitName,
                 'methods'         => [],
@@ -582,7 +578,7 @@ final class File extends AbstractNode
 
     private function crap(int $ccn, float $coverage): string
     {
-        if ($coverage === 0.0) {
+        if ($coverage === 0) {
             return (string) ($ccn ** 2 + $ccn);
         }
 
