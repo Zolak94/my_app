@@ -21,5 +21,12 @@ class User
         $data = [$this->email, $this->first_name, $this->last_name, $this->password];
         DB::query($sql, $data);
     }
+    
+    public function update()
+    {
+        $sql = "UPDATE users SET email=?, first_name=?, last_name=?, password=? WHERE id=?";
+        $data = [$this->email, $this->first_name, $this->last_name, $this->password, $this->id];
+        DB::query($sql, $data);
+    }
 }
 ?>
