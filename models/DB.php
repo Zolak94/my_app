@@ -9,7 +9,6 @@ class DB
 
     private static function connect()
     {
-        
         if (!isset($pdo)) {
             $pdo = new PDO("mysql:host=".self::$host, self::$username, self::$password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -27,7 +26,6 @@ class DB
             $pdo->exec($sql);
             return $pdo;
         }
-       
     }
 
     public static function query($query, $params = array())
@@ -40,4 +38,3 @@ class DB
         }
     }
 }
-?>

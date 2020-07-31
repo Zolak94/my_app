@@ -6,9 +6,12 @@ class User
     public $last_name;
     public $password;
 
-    public function __construct($email = null, $first_name = null,
-        $last_name = null, $password = null)
-    {
+    public function __construct(
+        $email = null,
+        $first_name = null,
+        $last_name = null,
+        $password = null
+    ) {
         $this->email = $email;
         $this->first_name = $first_name;
         $this->last_name = $last_name;
@@ -29,4 +32,3 @@ class User
         DB::query($sql, $data);
     }
 }
-?>
