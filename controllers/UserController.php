@@ -50,4 +50,12 @@ class UserController extends Controller
         }
         header('Location: /');
     }
+
+    public static function delete()
+    {
+        if (isset($_GET['id'])) {
+            DB::query("DELETE FROM users WHERE id=".$_GET['id']);
+            header('Location: /');
+        }
+    }
 }

@@ -17,4 +17,7 @@ Route::set('users/edit', function() {
 Route::set('users/update', function() {
     UserController::update();
 });
+Route::set('users/delete', function() {
+    UserController::delete();
+});
 ?>
