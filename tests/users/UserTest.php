@@ -2,7 +2,7 @@
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;
 
-class GuestBookTest extends TestCase
+class UserTest extends TestCase
 {
     use TestCaseTrait;
 
@@ -23,7 +23,7 @@ class GuestBookTest extends TestCase
 
     public function getDataSet()
     {
-        return $this->createFlatXmlDataSet('./tests/users_fixture.xml');
+        return $this->createFlatXmlDataSet('./tests/users/users_fixture.xml');
     }
 
     public function testRowCount()
@@ -49,7 +49,7 @@ class GuestBookTest extends TestCase
             'SELECT id, email, first_name, last_name, password FROM users'
         );
  
-        $expectedTable = $this->createFlatXmlDataSet("./tests/users_save_expected.xml")
+        $expectedTable = $this->createFlatXmlDataSet("./tests/users/users_save_expected.xml")
             ->getTable("users");
  
         $this->assertTablesEqual($expectedTable, $queryTable);
@@ -74,7 +74,7 @@ class GuestBookTest extends TestCase
             'SELECT id, email, first_name, last_name, password FROM users WHERE id='.$user->id
         );
  
-        $expectedTable = $this->createFlatXmlDataSet("./tests/users_update_expected.xml")
+        $expectedTable = $this->createFlatXmlDataSet("./tests/users/users_update_expected.xml")
             ->getTable("users");
  
         $this->assertTablesEqual($expectedTable, $queryTable);
@@ -89,15 +89,7 @@ class GuestBookTest extends TestCase
 
         $user = User::find(1);
  
-        $queryTable = $this->getConnection()->createQueryTable(
-            'users',
-            'SELECT id, email, first_name, last_name, password FROM users WHERE id=1'
-        );
- 
-        $expectedTable = $this->createFlatXmlDataSet("./tests/users_find_expected.xml")
-            ->getTable("users");
- 
-        $this->assertTablesEqual($expectedTable, $queryTable);
+        $this->assertEquals($user->id, 1);
     }
 
     public function testEmailIsNullByDefault()
