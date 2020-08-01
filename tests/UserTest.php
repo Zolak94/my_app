@@ -49,7 +49,7 @@ class GuestBookTest extends TestCase
             'SELECT id, email, first_name, last_name, password FROM users'
         );
  
-        $expectedTable = $this->createFlatXmlDataSet("./tests/users_expected.xml")
+        $expectedTable = $this->createFlatXmlDataSet("./tests/users_save_expected.xml")
             ->getTable("users");
  
         $this->assertTablesEqual($expectedTable, $queryTable);
@@ -75,6 +75,26 @@ class GuestBookTest extends TestCase
         );
  
         $expectedTable = $this->createFlatXmlDataSet("./tests/users_update_expected.xml")
+            ->getTable("users");
+ 
+        $this->assertTablesEqual($expectedTable, $queryTable);
+    }
+
+    
+    public function testFindUser()
+    {
+        require_once('./models/User.php');
+        require_once('./models/Route.php');
+        require_once('./models/DB.php');
+
+        $user = User::find(1);
+ 
+        $queryTable = $this->getConnection()->createQueryTable(
+            'users',
+            'SELECT id, email, first_name, last_name, password FROM users WHERE id=1'
+        );
+ 
+        $expectedTable = $this->createFlatXmlDataSet("./tests/users_find_expected.xml")
             ->getTable("users");
  
         $this->assertTablesEqual($expectedTable, $queryTable);
