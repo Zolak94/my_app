@@ -24,14 +24,14 @@
                     echo "<tbody>";
                     foreach ($users as $user) {
                         echo "<tr>";
-                        echo "<td>" . $user['id'] . "</td>";
-                        echo "<td>" . $user['email'] . "</td>";
-                        echo "<td>" . $user['first_name'] . "</td>";
-                        echo "<td>" . $user['last_name'] . "</td>";
+                        echo "<td>" . $user->id . "</td>";
+                        echo "<td>" . $user->email . "</td>";
+                        echo "<td>" . $user->first_name . "</td>";
+                        echo "<td>" . $user->last_name . "</td>";
                         echo "<td>";
-                        echo "<a href='users/show?id=". $user['id'] ."' class='btn btn-outline-primary btn-sm' title='View User' data-toggle='tooltip'><i class='fas fa-eye'></i></a>";
-                        echo " <a href='users/edit?id=". $user['id'] ."' class='btn btn-outline-primary btn-sm' title='Update User' data-toggle='tooltip'><i class='fas fa-pen'></i></a>";
-                        echo " <a href='users/delete?id=". $user['id'] ."' class='btn btn-outline-primary btn-sm' title='Delete User' data-toggle='tooltip'><i class='fas fa-trash-alt'></i></a>";
+                        echo "<a href='users/show?id=". $user->id ."' class='btn btn-outline-primary btn-sm' title='View User' data-toggle='tooltip'><i class='fas fa-eye'></i></a>";
+                        echo " <a href='users/edit?id=". $user->id ."' class='btn btn-outline-primary btn-sm' title='Update User' data-toggle='tooltip'><i class='fas fa-pen'></i></a>";
+                        echo " <a href='users/delete?id=". $user->id ."' class='btn btn-outline-primary btn-sm' title='Delete User' data-toggle='tooltip'><i class='fas fa-trash-alt'></i></a>";
                         echo "</td>";
                         echo "</tr>";
                     }

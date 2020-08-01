@@ -27,21 +27,20 @@ class UserController extends Controller
 
     public static function show()
     {
-        $user = self::query("SELECT * FROM users WHERE id=".$_GET['id']);
+        $user = User::find($_GET['id']);
         require_once('./views/Show.php');
     }
     
     public static function edit()
     {
-        $user = self::query("SELECT * FROM users WHERE id=".$_GET['id']);
+        $user = User::find($_GET['id']);
         require_once('./views/Edit.php');
     }
     
     public static function update()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $user = new User();
-            $user->id = $_POST['id'];
+            $user = User::find($_POST['id']);
             $user->email = $_POST['email'];
             $user->first_name = $_POST['first_name'];
             $user->last_name = $_POST['last_name'];

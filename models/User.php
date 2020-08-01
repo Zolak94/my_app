@@ -31,4 +31,11 @@ class User
         $data = [$this->email, $this->first_name, $this->last_name, $this->password, $this->id];
         DB::query($sql, $data);
     }
+        
+    public function find($id)
+    {
+        $sql = "SELECT * FROM users WHERE id=".$id;
+        $user = DB::query($sql)[0];
+        return $user;
+    }
 }

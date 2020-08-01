@@ -55,6 +55,31 @@ class GuestBookTest extends TestCase
         $this->assertTablesEqual($expectedTable, $queryTable);
     }
 
+    public function testUpdateUser()
+    {
+        require_once('./models/User.php');
+        require_once('./models/Route.php');
+        require_once('./models/DB.php');
+
+        $user = new User();
+        $user->id = 2;
+        $user->email = 'gina.doe@gmail.com';
+        $user->first_name = 'Gina';
+        $user->last_name = 'Doe';
+        $user->password = '987#doe';
+        $user->update();
+ 
+        $queryTable = $this->getConnection()->createQueryTable(
+            'users',
+            'SELECT id, email, first_name, last_name, password FROM users WHERE id='.$user->id
+        );
+ 
+        $expectedTable = $this->createFlatXmlDataSet("./tests/users_update_expected.xml")
+            ->getTable("users");
+ 
+        $this->assertTablesEqual($expectedTable, $queryTable);
+    }
+
     public function testEmailIsNullByDefault()
     {
         require_once('./models/User.php');
