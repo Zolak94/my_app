@@ -20,7 +20,7 @@
 |first_name  |varchar(60) |NO    |    |NULL    |               |
 |last_name   |varchar(60) |NO    |    |NULL    |               |
 |password    |varchar(60) |NO    |    |NULL    |               |
-|filename    |varchar(60) |NO    |    |NULL    |               |
+|filename    |varchar(60) |YES   |    |NULL    |               |
 
 ```
 CREATE TABLE `users` (
@@ -29,7 +29,7 @@ CREATE TABLE `users` (
  `first_name` varchar(60) NOT NULL,
  `last_name` varchar(60) NOT NULL,
  `password` varchar(60) NOT NULL,
- `filename` varchar(60) NOT NULL,
+ `filename` varchar(60) DEFAULT NULL,
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4
 ```

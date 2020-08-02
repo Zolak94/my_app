@@ -42,11 +42,12 @@ class UserTest extends TestCase
         $user->first_name = 'Nikola';
         $user->last_name = 'Tesla';
         $user->password = 'ac123dc';
+        $user->filename = '';
         $user->save();
  
         $queryTable = $this->getConnection()->createQueryTable(
             'users',
-            'SELECT id, email, first_name, last_name, password FROM users'
+            'SELECT id, email, first_name, last_name, password, filename FROM users'
         );
  
         $expectedTable = $this->createFlatXmlDataSet("./tests/users/users_save_expected.xml")
@@ -67,11 +68,12 @@ class UserTest extends TestCase
         $user->first_name = 'Gina';
         $user->last_name = 'Doe';
         $user->password = '987#doe';
+        $user->filename = '';
         $user->update();
  
         $queryTable = $this->getConnection()->createQueryTable(
             'users',
-            'SELECT id, email, first_name, last_name, password FROM users WHERE id='.$user->id
+            'SELECT id, email, first_name, last_name, password, filename FROM users WHERE id='.$user->id
         );
  
         $expectedTable = $this->createFlatXmlDataSet("./tests/users/users_update_expected.xml")

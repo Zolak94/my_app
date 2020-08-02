@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
 <dataset>
-    <users id="1" email="john.doe@gmail.com" first_name="John" last_name="Doe" password="123john" />
-    <users id="2" email="gina.doe@gmail.com" first_name="Gin" last_name="Doe" password="123gina" />
+    <users id="1" email="john.doe@gmail.com" first_name="John" last_name="Doe" password="123john" filename=""/>
+    <users id="2" email="gina.doe@gmail.com" first_name="Gin" last_name="Doe" password="123gina" filename=""/>
 </dataset> 

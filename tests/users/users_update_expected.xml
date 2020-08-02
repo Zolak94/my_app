@@ -1,4 +1,4 @@
 <?xml version="1.0" ?>
 <dataset>
-    <users id="2" email="gina.doe@gmail.com" first_name="Gina" last_name="Doe" password="987#doe" />
+    <users id="2" email="gina.doe@gmail.com" first_name="Gina" last_name="Doe" password="987#doe" filename=""/>
 </dataset> 

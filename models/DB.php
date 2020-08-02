@@ -22,7 +22,7 @@ class DB
                 first_name VARCHAR(60) NOT NULL,
                 last_name VARCHAR(60) NOT NULL,
                 password VARCHAR(60) NOT NULL,
-                filename VARCHAR(60) NOT NULL
+                filename VARCHAR(60) DEFAULT NULL
             )";
             $pdo->exec($sql);
             return $pdo;
