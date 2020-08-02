@@ -20,6 +20,7 @@
 |first_name  |varchar(60) |NO    |    |NULL    |               |
 |last_name   |varchar(60) |NO    |    |NULL    |               |
 |password    |varchar(60) |NO    |    |NULL    |               |
+|filename    |varchar(60) |NO    |    |NULL    |               |
 
 ```
 CREATE TABLE `users` (
@@ -28,8 +29,9 @@ CREATE TABLE `users` (
  `first_name` varchar(60) NOT NULL,
  `last_name` varchar(60) NOT NULL,
  `password` varchar(60) NOT NULL,
+ `filename` varchar(60) NOT NULL,
  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4
 ```
 
 ## Getting your Environment Setup
