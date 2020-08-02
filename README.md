@@ -21,6 +21,17 @@
 |last_name   |varchar(60) |NO    |    |NULL    |               |
 |password    |varchar(60) |NO    |    |NULL    |               |
 
+```
+CREATE TABLE `users` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `email` varchar(60) NOT NULL,
+ `first_name` varchar(60) NOT NULL,
+ `last_name` varchar(60) NOT NULL,
+ `password` varchar(60) NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4
+```
+
 ## Getting your Environment Setup
  - Clone this repository on your machine
 ```https://github.com/Zolak94/my_app```
