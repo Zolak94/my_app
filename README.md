@@ -55,3 +55,10 @@ and add this with path to your project repository.
 </VirtualHost>
 ```
  - Start Xampp application and then start Apache module and MySQL module
+
+ ## PHPUNIT Testing
+
+ All tests are in `/tests` folder running this command will show code coverage
+ ```
+ ./vendor/bin/phpunit --coverage-text ./tests
+ ```
