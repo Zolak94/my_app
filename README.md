@@ -12,7 +12,7 @@
 
 ## Database schema
 
-users
+**TABLE users**
 |Field       |Type        |Null  |Key |Default |Extra          |
 |------------|------------|------|----|--------|---------------|
 |id          |int(11)     |NO    |PRI |NULL    |auto_increment |
