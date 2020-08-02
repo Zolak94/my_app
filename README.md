@@ -10,6 +10,17 @@
 | Mysql Password |                        |
 | Mysql Database | my_app                 |
 
+## Database schema
+
+users
+|Field       |Type        |Null  |Key |Default |Extra          |
+|------------|------------|------|----|--------|---------------|
+|id          |int(11)     |NO    |PRI |NULL    |auto_increment |
+|email       |varchar(60) |NO    |    |NULL    |               |
+|first_name  |varchar(60) |NO    |    |NULL    |               |
+|last_name   |varchar(60) |NO    |    |NULL    |               |
+|password    |varchar(60) |NO    |    |NULL    |               |
+
 ## Getting your Environment Setup
  - Clone this repository on your machine
 ```https://github.com/Zolak94/my_app```
