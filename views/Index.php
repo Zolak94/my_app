@@ -14,6 +14,7 @@
                     echo "<table class='table table-bordered table-striped'>";
                     echo "<thead>";
                         echo "<tr>";
+                            echo "<th>Avatar</th>";
                             echo "<th>ID</th>";
                             echo "<th>E-mail</th>";
                             echo "<th>First Name</th>";
@@ -24,6 +25,7 @@
                     echo "<tbody>";
                     foreach ($users as $user) {
                         echo "<tr>";
+                        echo "<td><img src='/uploads/".$user->filename."' width='30' height='30'/></td>";
                         echo "<td>" . $user->id . "</td>";
                         echo "<td>" . $user->email . "</td>";
                         echo "<td>" . $user->first_name . "</td>";

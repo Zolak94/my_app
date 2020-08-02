@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-12">
                 <h1>Create user</h1>
-                <form method="post" action="/users/store">
+                <form method="post" action="/users/store" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Email address</label>
                         <input type="email" class="form-control" id="email" name="email">
@@ -23,6 +23,9 @@
                     <div class="form-group">
                         <label>Password</label>
                         <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="avatar" id="avatar">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

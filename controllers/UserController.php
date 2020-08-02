@@ -20,6 +20,11 @@ class UserController extends Controller
             $user->first_name = $_POST['first_name'];
             $user->last_name = $_POST['last_name'];
             $user->password = $_POST['password'];
+            if (isset($_FILES['avatar']) && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
+                $folder = "uploads/";
+                move_uploaded_file($_FILES["avatar"]["tmp_name"], "$folder" . $_FILES["avatar"]["name"]);
+                $user->filename = $_FILES["avatar"]["name"];
+            }
             $user->save();
         }
         header('Location: /');
@@ -45,6 +50,17 @@ class UserController extends Controller
             $user->first_name = $_POST['first_name'];
             $user->last_name = $_POST['last_name'];
             $user->password = $_POST['password'];
+            if (isset($_FILES['avatar']) && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
+                // if user is uploading avatar first we will delete old one
+                $old_avatar = "uploads/".$user->filename;
+                if (file_exists($old_avatar)) {
+                    unlink($old_avatar);
+                }
+                // uploading new avatar
+                $folder = "uploads/";
+                move_uploaded_file($_FILES["avatar"]["tmp_name"], "$folder" . $_FILES["avatar"]["name"]);
+                $user->filename = $_FILES["avatar"]["name"];
+            }
             $user->update();
         }
         header('Location: /');
@@ -53,6 +69,12 @@ class UserController extends Controller
     public static function delete()
     {
         if (isset($_GET['id'])) {
+            // first we need to find user and delete his avatar before deleting user
+            $user = User::find($_GET['id']);
+            $avatar = "uploads/".$user->filename;
+            if (file_exists($avatar)) {
+                unlink($avatar);
+            }
             DB::query("DELETE FROM users WHERE id=".$_GET['id']);
             header('Location: /');
         }

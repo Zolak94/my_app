@@ -9,6 +9,10 @@
                     <h1>View User</h1>
                     <table class="table table-bordered">
                         <tr>
+                            <td>Avatar</td>
+                            <td><?php  echo '<img src="/uploads/'.$user->filename.'" width="100" height="100"/>'; ?></td>
+                        </tr>
+                        <tr>
                             <td>ID</td>
                             <td><?php echo $user->id ?></td>
                         </tr>

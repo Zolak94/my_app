@@ -6,8 +6,12 @@ class Route
     public static function set($route, $function)
     {
         self::$validRoutes[] = $route;
-
-        if ($_GET['url'] == $route) {
+        $url = 'index.php';
+        
+        if (isset($_GET['url'])) {
+           $url = $_GET['url'];
+        }
+        if ($url == $route) {
             $function->__invoke();
         }
     }

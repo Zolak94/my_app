@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-12">
                 <h1>Edit User</h1>
-                <form method="post" action="/users/update">
+                <form method="post" action="/users/update" enctype="multipart/form-data">
                     <input hidden id="id" name="id" value="<?php echo $user->id;?>">
                     <div class="form-group">
                         <label>Email address</label>
@@ -28,6 +28,9 @@
                         <label>Password</label>
                         <input type="password" class="form-control" id="password" name="password"
                             value="<?php echo $user->password;?>">
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="avatar" id="avatar">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

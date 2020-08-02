@@ -17,11 +17,6 @@
             padding: 2rem 0rem;
         }
     </style>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-        });
-    </script>
     <style type="text/css">
         .wrapper{
             width: 600px;
