@@ -56,9 +56,14 @@ and add this with path to your project repository.
 ```
  - Start Xampp application and then start Apache module and MySQL module
 
+## Using application
+ - To access the application go to this url: `http://testbox.test/`
+ - To access applications database go to this url: `http://testbox.test/phpmyadmin`
+
  ## PHPUNIT Testing
 
  All tests are in `/tests` folder running this command will show code coverage
  ```
  ./vendor/bin/phpunit --coverage-text ./tests
  ```
+ 
