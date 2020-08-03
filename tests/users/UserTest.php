@@ -62,8 +62,7 @@ class UserTest extends TestCase
         require_once('./models/Route.php');
         require_once('./models/DB.php');
 
-        $user = new User();
-        $user->id = 2;
+        $user = User::find(2);
         $user->email = 'gina.doe@gmail.com';
         $user->first_name = 'Gina';
         $user->last_name = 'Doe';
@@ -102,5 +101,25 @@ class UserTest extends TestCase
         
         $user = new User();
         $this->assertEquals(null, $user->email);
+    }
+
+    public function testDeleteUser()
+    {
+        require_once('./models/User.php');
+        require_once('./models/Route.php');
+        require_once('./models/DB.php');
+
+        $user = User::find(1);
+        $user->delete();
+ 
+        $queryTable = $this->getConnection()->createQueryTable(
+            'users',
+            'SELECT * FROM users WHERE id!=1'
+        );
+ 
+        $expectedTable = $this->createFlatXmlDataSet("./tests/users/users_delete_expected.xml")
+            ->getTable("users");
+ 
+        $this->assertTablesEqual($queryTable, $expectedTable);
     }
 }

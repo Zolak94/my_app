@@ -44,11 +44,6 @@ class User
 
     public function delete()
     {
-        // first we need to find user and delete his avatar before deleting user
-        $avatar = "uploads/".$this->filename;
-        if (file_exists($avatar)) {
-            unlink($avatar);
-        }
         DB::query("DELETE FROM users WHERE id=".$this->id);
     }
 }

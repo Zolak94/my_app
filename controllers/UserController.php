@@ -76,6 +76,11 @@ class UserController extends Controller
     {
         if (isset($_GET['id'])) {
             $user = User::find($_GET['id']);
+            // first we need to find user and delete his avatar before deleting user
+            $avatar = "uploads/".$this->filename;
+            if (file_exists($avatar) && count(glob("uploads/*")) !== 0) {
+                unlink($avatar);
+            }
             $user->delete();
             header('Location: /');
         }
