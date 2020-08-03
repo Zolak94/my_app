@@ -21,6 +21,9 @@ class UserController extends Controller
             $user->last_name = $_POST['last_name'];
             $user->password = $_POST['password'];
             if (isset($_FILES['avatar']) && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
+                if (!is_dir('uploads/')) {
+                    mkdir('uploads/', 0755, true);
+                }
                 $folder = "uploads/";
                 move_uploaded_file($_FILES["avatar"]["tmp_name"], "$folder" . $_FILES["avatar"]["name"]);
                 $user->filename = $_FILES["avatar"]["name"];
@@ -51,6 +54,9 @@ class UserController extends Controller
             $user->last_name = $_POST['last_name'];
             $user->password = $_POST['password'];
             if (isset($_FILES['avatar']) && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
+                if (!is_dir('uploads/')) {
+                    mkdir('uploads/', 0755, true);
+                }
                 // if user is uploading avatar first we will delete old one
                 $old_avatar = "uploads/".$user->filename;
                 if (file_exists($old_avatar)) {
