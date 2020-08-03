@@ -75,13 +75,8 @@ class UserController extends Controller
     public static function delete()
     {
         if (isset($_GET['id'])) {
-            // first we need to find user and delete his avatar before deleting user
             $user = User::find($_GET['id']);
-            $avatar = "uploads/".$user->filename;
-            if (file_exists($avatar)) {
-                unlink($avatar);
-            }
-            DB::query("DELETE FROM users WHERE id=".$_GET['id']);
+            $user->delete();
             header('Location: /');
         }
     }
